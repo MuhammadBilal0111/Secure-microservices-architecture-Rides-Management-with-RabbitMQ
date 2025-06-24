@@ -1,0 +1,34 @@
+Request Flow:
+1. Request Hits Gateway
+  You send a request to:
+  http://localhost:3000/user/register
+
+2. Gateway Routing
+The gateway (:3000) sees the /user prefix and forwards the entire request to:
+http://localhost:3001/register
+(Note: The /user prefix is stripped during forwarding)
+
+3. User Service Processing
+Your User Service (:3001) receives the request at its /register endpoint and processes it normally.
+
+we are communication from ride service to user service and fetching the data with the help of specific route. This type of communication is called synchronous communication.
+Advantage: Immediately fetch data
+but ride service depend upon the user service here is the negative point user service down ride service downs
+
+RabbitMq - a message broker that is used to connect multiple services for asynchronous communication
+all services are independent but there is a lil sync (thora sync me rakhna pare ga)
+Now all the three micrservices connecttion must be estalished with message broker
+whenever a ride created it will generate the message to "message "broker" and tells that one ride has been made, now the message broker tell about the rides creation to the captain to accept or not.
+
+RabbitMq -> primarily works on queue system.
+there is a queue of ride creation where only the ride creation data must be saved
+if captain accept the ride, this data must be saved in other queue
+RabbitMq -> used for asynchronous communication
+advantage: if captain service down then th ride service can easily works
+disadvatage: response delay because of asynchronous behaviour
+use library amqp lib
+
+use for asynchronous communication between microservices
+
+What is long pooling
+aik specific route p req bhejna or wait krna ane ka
