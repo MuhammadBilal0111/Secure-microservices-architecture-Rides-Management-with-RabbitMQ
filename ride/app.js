@@ -1,12 +1,15 @@
 const dotenv = require("dotenv");
 dotenv.config({ path: ".env" });
 const express = require("express");
-const app = express();
+const helmet = require("helmet");
 const morgan = require("morgan");
 const rideRoutes = require("./routes/ride.routes");
 const cookieParser = require("cookie-parser");
 const globalErrorHandler = require("./controller/error.controller");
 const RabbitMQ = require("./services/rabbitMQ");
+
+const app = express();
+app.use(helmet());
 
 // rabbitMq connection
 RabbitMQ.connect();
